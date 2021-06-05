@@ -1,0 +1,389 @@
+---
+title:  "Title of my presentation and the topic of today"
+subtitle: "The subtitle (optional)"
+author: 
+  - "My name"
+  - "MSc / MPhil / PhD Student: XXX"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: ['glasgow_light.css','image_title.css','outline.css','blockquote.css','text_color.css']
+    seal: false
+    nature:
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+      
+---
+
+class: title-slide
+
+# This is my title: An Excellent Presentation
+
+## AATS Annual Meeting 2021 
+
+### Dr. XYZ
+
+###Associate Professor of xxxx
+
+###University of xxxx
+
+###xxxx, xxxx
+
+###`r icon::ii("email")` abc@123.edu  
+
+---
+
+# Contents of the title slide
+
+* The title slide contains information from the yaml. The **yaml** is first part of the Rmarkdown document before the body of the document.
+
+* The yaml options for **xaringan** slides provided in this template are title, author, and date. 
+
+* Apart from the standard yaml options, **autoplay** and **loop** can be used to loop the slides creating a continuous slideshow.
+
+* the yaml contains .text-rust[_seal:false_], that way, you can create a new title slide without pulling information from the yaml.
+
+---
+class: center, middle, chapter
+
+
+
+# Using this Template
+
+---
+
+# Using this Template
+
+Details regarding using the xaringan library and this template is available at 
+
+* (https://bookdown.org/yihui/rmarkdown/xaringan.html)
+This is a link to the chapter on the **xaringan** library.
+
+* (https://slides.yihui.org/xaringan/#1) This is a link to the official documentation on **xaringan**.
+
+* (https://github.com/yihui/xaringan/wiki) This is a link to the **xaringan** wiki page. It provides tips regarding use as well as further customisation.
+
+* (https://github.com/gnab/remark/wiki) The **remark.js** wiki is a good tool to learn how to make slides.
+
+
+---
+# Layout 
+
+* Simple title, bullet, text layout 
+
+* Two column with equal column layout 
+
+* Two column with side-bar and content layout 
+
+---
+
+# One bullet point at a time
+
+* First point
+
+--
+
+* Second point 
+
+--
+
+* Third point 
+
+---
+
+
+
+# Insert graphs
+
+
+```{r, echo=FALSE,warning=FALSE,message=FALSE}
+
+library(ggplot2)
+library(extrafont)
+loadfonts(device = "win")
+
+
+```
+
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+
+##################################################################
+##                     UofG graphical theme                     ##
+##################################################################
+
+
+# This theme is created using the U of G branding guidelines.
+# Detailed guidance can be found here - https://www.gla.ac.uk/myglasgow/staff/brandtoolkit/
+# Fonts: 
+# Swiss 721 and Adobe Garamond are the recommended fonts. However, both these fonts
+# are proprietary. Thus, for routine use, both Arial and TNR are acceptable.
+# The theme is a modification of the minimal theme. 
+# Title = U of G blue
+# subtitle = U of G burgundy
+# footnotes  = black
+# The axes labels and tick labels are in Arial.
+# The plot background is U of G 30% slate.
+# Theme loads the Titillium font from google fonts using the # showtext library; the yarrr library is needed for the 
+# creating the transparent gray background for the plot.
+
+# define colors for the U of G branding.
+
+gla_blue <- rgb(0/255,56/255,101/255)
+gla_heather <- rgb(91/255,83/255,125/255)
+gla_aquamarine <- rgb(154/255,185/255,173/255)
+gla_slate <- rgb(79/255,89/255,97/255)
+gla_rose <-  rgb(210/255,120/255,171/255)
+gla_mocha <- rgb(181/255,144/255,121/255)
+gla_lawn <- rgb(132/255,189/255,80/255)
+gla_cobalt <- rgb(0/255,117/255,176/255)
+gla_turquiose <- rgb(0/255,181/255,209/255)
+gla_sunshine <- rgb(255/255,220/255,54/255)
+gla_pumpkin <- rgb(244/255,185/255,72/255)
+gla_thistle <- rgb(149/255,18/255,114/255)
+gla_pillarbox <- rgb(213/255,0/255,50/255)
+gla_lavender <- rgb(91/255,77/255,148/255)
+gla_forest <- rgb(0/255,81/255,51/255)
+gla_burgundy <- rgb(125/255,34/255,57/255)
+gla_rust <- rgb(154/255,58/255,6/255)
+gla_sandstone <- rgb(82/255,71/255,59/255)
+
+
+gla <- c(gla_blue, 
+         gla_rust,
+         gla_aquamarine,
+         gla_sandstone,
+         gla_pumpkin)
+
+twoc <- c(gla_burgundy, gla_cobalt)
+
+
+
+theme_gla <- function(){ 
+  
+  library(yarrr)
+ 
+  # use the minimal theme as it has the best appearance.
+  # would like to add a very light grey background to the graph.
+  theme_minimal() %+replace%    #replace elements we want to change
+    
+    
+    theme(
+      
+      # add very light gray background.
+      
+      panel.background =   
+        element_rect(fill = yarrr::transparent("#f7f7f7",0.1), colour = NA),
+      
+      #grid elements
+      panel.grid.major = element_blank(),    #strip major grid lines
+      panel.grid.minor = element_blank(),    #strip minor grid lines
+      axis.ticks = element_blank(),          #strip axis ticks
+      
+      #since theme_minimal() already strips axis lines, 
+      #we don't need to do that again
+      
+      #text elements
+      plot.title = element_text(             #title
+        family = 'Arial',            #set font family
+        size = 30,                #set font size
+        face = 'bold',            #bold typeface
+        hjust = 0,                #left align
+        vjust = 2,
+        colour = gla_blue),               #raise slightly
+      
+      plot.subtitle = element_text(          #subtitle
+        family = 'Arial',            #font family
+        size = 15,
+        face = "italic",
+        hjust = 0,
+        color = gla_burgundy),               #font size
+      
+      plot.caption = element_text(           #caption
+        family = 'Arial',            #font family
+        size = 8,                 #font size
+        hjust = 1,
+        face = "italic"),                #right align
+      
+      axis.title = element_text(         #axis titles
+        family = "Arial",                   #font family
+        size = 10),                      #font size
+      
+      axis.text = element_text(              #axis text
+        family = "Arial",            #axis famuly
+        size = 10),                #font size
+      
+      axis.text.x = element_text(   #margin for axis text
+        margin=margin(5, b = 10)),
+      
+      legend.title = element_text(
+        family = "Arial",
+        size = 15),
+      
+      legend.text = element_text(
+        family = "Arial",
+        size = 10)
+      
+      #since the legend often requires manual tweaking 
+      #based on plot content, don't define it here
+    )
+  
+}
+
+```
+
+
+```{r, echo = FALSE, warning=FALSE,message=FALSE,fig.height=6,fig.width=11, ,fig.align='center'}
+
+
+
+library(ggthemes)
+library(tidyverse)
+library(survival) #<<
+library(GGally) #<<
+
+s <- survfit(Surv(time, status) ~ sex, data = lung)
+
+GGally::ggsurv(s,CI = T,plot.cens = T) + theme_gla() + scale_color_manual(values = gla) + labs(title = "Survival curve",
+                                                                                               subtitle = "Glasgow colors")
+
+
+```
+
+---
+
+# Highlight code
+
+* Code can be highlighted using **#<<** 
+
+* Use [ some R code ] to allow for vertical scrolling of R chunk and results.
+
+.pre-large[
+
+```{r}
+
+# use .pre[some R code] to allow for vertical scrolling of R code chunk
+
+
+a <- lm(mpg ~ hp, data = mtcars) 
+
+summary(a) #<<
+```
+]
+
+---
+
+# Whole slide scroll 
+
+.pre-whole[
+
+```{r}
+
+s <- survfit(Surv(time, status) ~ sex, data = lung)
+
+summary(s)
+
+```
+]
+
+---
+
+# Two column layout
+
+.pull-right[
+
+* Some points 
+
+* More points
+
+* Even more points 
+
+* The slide is divided into 2 equal parts and text, bullet points, or images can be pasted in either one
+]
+
+.pull-left[
+
+![](https://d33wubrfki0l68.cloudfront.net/62bcc8535a06077094ca3c29c383e37ad7334311/a263f/assets/img/logo.svg)
+
+* the image
+
+* another image
+]
+
+
+---
+
+# GGplot2 graphs
+
+.pull-right[
+
+```{r, fig.height=5,fig.width=8}
+
+ggplot(mtcars, aes(x = mpg, y = hp, color = factor(gear))) + geom_point() +  scale_color_manual(values = gla) + theme_gla()
+
+```
+
+]
+
+.pull-left[
+
+* ggplot2 graphs can also be placed in the half column
+]
+
+---
+
+# Context boxes
+
+
+.content-box-blue[This is point 1]
+
+--
+
+.content-box-green[This is point 2]
+
+--
+
+.content-box-army[This is point 3]
+
+--
+
+.blockquote[- Latex is dead, long live CSS
+
+- More information ]
+
+---
+
+# Change text colors
+
+* Using text colors css, we can change the text colors.
+
+.text-cobalt[Blue colored text]
+
+--
+
+.text-thistle[Thistle colored text]
+
+--
+
+## .text-rust[Rust colored text] - This is a 2nd level header 
+
+--
+
+.text-moss[Moss colored text]
+
+--
+
+* To change the color of italic font
+
+_.text-thistle[some thistle colored italic font]_
+
+
+---
+
+# Animated Graphs 
+
+* Animated graphs and interactive graphs using plotly and gganimate can be embedded into slides 
+
