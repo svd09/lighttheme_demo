@@ -268,9 +268,9 @@ GGally::ggsurv(s,CI = T,plot.cens = T) + theme_gla() + scale_color_manual(values
 # use .pre[some R code] to allow for vertical scrolling of R code chunk
 
 
-a <- lm(mpg ~ hp, data = mtcars) 
+a <- lm(mpg ~ hp, data = mtcars) #<<
 
-summary(a) #<<
+summary(a) 
 ```
 ]
 
@@ -350,7 +350,7 @@ ggplot(mtcars, aes(x = mpg, y = hp, color = factor(gear))) + geom_point() +  sca
 
 --
 
-.blockquote[- Latex is dead, long live CSS
+.blockquote[- CSS & HTML are fantastic
 
 - More information ]
 
